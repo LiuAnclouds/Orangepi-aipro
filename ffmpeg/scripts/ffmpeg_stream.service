@@ -1,0 +1,18 @@
+[Unit]
+Description=FFmpeg RTSP Stream
+After=mediamtx.service
+Requires=mediamtx.service
+
+[Service]
+User=HwHiAiUser
+Group=HwHiAiUser
+WorkingDirectory=/home/HwHiAiUser
+EnvironmentFile=/usr/local/Ascend/ascend-toolkit/set_env.sh
+Environment="LD_LIBRARY_PATH=/usr/lib:/usr/local/Ascend/ascend-toolkit/latest/acllib/lib64:$LD_LIBRARY_PATH"
+Environment="PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/local/Ascend/ascend-toolkit/latest/bin"
+ExecStart=/bin/bash /home/HwHiAiUser/ffmpeg_rtsp.sh
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
