@@ -286,10 +286,10 @@ conda create -n yolov8 --clone base
 # 激活
 conda activate yolov8
 #配置清华源
-python -m pip install --upgrade pip
+python -m pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple #使用清华源
 pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 #安装ultralytics
-pip install ultralytics -i https://pypi.tuna.tsinghua.edu.cn/simple #使用清华源
+pip install ultralytics==8.2.6 -i https://pypi.tuna.tsinghua.edu.cn/simple #使用清华源
 #安装onnx
 pip install onnx onnxruntime
 ```
@@ -352,7 +352,20 @@ python detect_om_camera_pushstream.py
 
 # 四、YOLO推理自启动
 
-## 1.配置服务文件
+## 1.配置虚拟显示屏
+
+```bash
+# 安装虚拟显示器
+sudo apt-get install xvfb
+
+# 启动虚拟显示器
+Xvfb :99 -screen 0 1024x768x24 &
+export DISPLAY=:99
+```
+
+
+
+## 2.配置服务文件
 
 ### 修改服务内容
 
@@ -390,7 +403,7 @@ cp detect_om_camera.service /etc/systemd/system
 chmod 777 /etc/systemd/system/*.service
 ```
 
-## 2.配置自启动脚本
+## 3.配置自启动脚本
 
 这时候需要修改detecm_om_camera.sh中的内容
 
@@ -455,7 +468,7 @@ chmod 777 detect_om_camera.sh
 
 
 
-## 3.启动服务脚本
+## 4.启动服务脚本
 
 ```bash
 
